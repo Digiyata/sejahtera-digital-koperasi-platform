@@ -1,3 +1,4 @@
+
 import type { Config } from "tailwindcss";
 
 export default {
@@ -19,6 +20,12 @@ export default {
 		},
 		extend: {
 			colors: {
+				// Brand colors
+				'astra-yellow': '#fcd107',
+				'astra-blue': '#1665a8',
+				'astra-dark-blue': '#0a4d88',
+				
+				// Original shadcn colors
 				border: 'hsl(var(--border))',
 				input: 'hsl(var(--input))',
 				ring: 'hsl(var(--ring))',

@@ -1,4 +1,3 @@
-
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import {
@@ -9,6 +8,7 @@ import {
   CarouselPrevious,
 } from "@/components/ui/carousel";
 import { ArrowRight } from "lucide-react";
+import type { EmblaCarouselType } from "embla-carousel-react";
 
 const slides = [
   {
@@ -27,11 +27,9 @@ const HeroSlider = () => {
     <Carousel 
       className="relative w-full" 
       opts={{ loop: true }}
-      onSelect={(api) => {
-        const currentSlide = api?.selectedScrollSnap();
-        if (currentSlide !== undefined) {
-          setActiveDot(currentSlide);
-        }
+      onSelect={(api: EmblaCarouselType) => {
+        const selectedIndex = api.selectedScrollSnap();
+        setActiveDot(selectedIndex);
       }}
     >
       <CarouselContent>
@@ -40,7 +38,6 @@ const HeroSlider = () => {
             <div className="relative h-[500px] w-full overflow-hidden">
               <div className="container mx-auto h-full px-4">
                 <div className="flex h-full">
-                  {/* Content */}
                   <div className="w-full md:w-1/2 flex items-center">
                     <div className="text-left text-astra-blue pr-8">
                       <h2 className="text-4xl md:text-5xl font-bold mb-4">
@@ -59,7 +56,6 @@ const HeroSlider = () => {
                     </div>
                   </div>
                   
-                  {/* Image */}
                   <div className="hidden md:block w-1/2 relative">
                     <div className="absolute right-0 top-0 bottom-0 w-full">
                       <div className="relative h-full w-full">
@@ -81,7 +77,6 @@ const HeroSlider = () => {
         ))}
       </CarouselContent>
       
-      {/* Custom navigation dots */}
       <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex space-x-2">
         {slides.map((_, index) => (
           <button

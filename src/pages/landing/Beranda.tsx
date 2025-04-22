@@ -1,6 +1,53 @@
+
 import React from "react";
 import { Link } from "react-router-dom";
 import HeroSlider from "@/components/landing/HeroSlider";
+
+// Define the programs data array
+const programs = [
+  {
+    title: "Simpanan Pokok",
+    description: "Investasi awal sebagai anggota koperasi dengan manfaat jangka panjang.",
+    icon: "💰"
+  },
+  {
+    title: "Pinjaman Usaha",
+    description: "Pinjaman modal dengan bunga rendah untuk mengembangkan usaha Anda.",
+    icon: "📈"
+  },
+  {
+    title: "Pelatihan UMKM",
+    description: "Program pelatihan untuk meningkatkan kapasitas usaha mikro, kecil dan menengah.",
+    icon: "📚"
+  },
+  {
+    title: "Investasi Anggota",
+    description: "Kesempatan berinvestasi dengan imbal hasil kompetitif dan aman.",
+    icon: "📊"
+  }
+];
+
+// Define the testimonials data array
+const testimonials = [
+  {
+    id: 1,
+    name: "Budi Santoso",
+    title: "Pemilik UMKM",
+    text: "Berkat pinjaman modal dari Koperasi Sejahtera, usaha saya bisa berkembang dan kini memiliki 3 cabang."
+  },
+  {
+    id: 2,
+    name: "Siti Rahayu",
+    title: "Ibu Rumah Tangga",
+    text: "Program simpanan koperasi membantu saya mengelola keuangan keluarga dengan lebih baik dan terencana."
+  },
+  {
+    id: 3,
+    name: "Ahmad Ridwan",
+    title: "Mahasiswa Wirausaha",
+    text: "Pelatihan dari Koperasi Sejahtera memberi saya pengetahuan dan jaringan untuk memulai usaha sejak kuliah."
+  }
+];
 
 const Beranda: React.FC = () => {
   return (

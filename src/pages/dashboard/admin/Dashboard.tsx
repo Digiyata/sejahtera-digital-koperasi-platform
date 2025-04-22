@@ -1,6 +1,21 @@
 
 import React from "react";
 import { useRequireAuth } from "@/hooks/useRequireAuth";
+import { Card, CardContent } from "@/components/ui/card";
+import { 
+  Users, 
+  Wallet,
+  CreditCard,
+  Calendar
+} from "lucide-react";
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table";
 
 const AdminDashboard: React.FC = () => {
   const { user } = useRequireAuth("admin");
@@ -13,7 +28,8 @@ const AdminDashboard: React.FC = () => {
     totalBalance: "Rp 2.850.000.000",
     activeLoans: 143,
     loanAmount: "Rp 1.325.000.000",
-    newMembersThisMonth: 28
+    newMembersThisMonth: 28,
+    todayTransactions: 12
   };
 
   // Mock data for recent activities
@@ -25,90 +41,81 @@ const AdminDashboard: React.FC = () => {
     { id: 5, type: "Transaksi Simpanan", name: "Sri Wahyuni", date: "18 Apr 2025", status: "Sukses" }
   ];
 
-  if (!user) {
-    return null; // Will be redirected by useRequireAuth
-  }
-
   return (
     <div className="space-y-6">
       <h1 className="text-2xl font-bold">Dashboard Admin</h1>
 
       {/* Statistics Cards */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-        <div className="bg-white p-6 rounded-lg shadow-sm border border-gray-200">
-          <p className="text-sm font-medium text-gray-500">Total Anggota</p>
-          <p className="text-2xl font-bold text-gray-800 mt-2">{statistics.totalMembers}</p>
-          <div className="flex justify-between mt-2 text-sm">
-            <span className="text-green-500">{statistics.activeMembers} Aktif</span>
-            <span className="text-gray-500">{statistics.inactiveMembers} Tidak Aktif</span>
-          </div>
-        </div>
+        <Card>
+          <CardContent className="flex flex-col gap-4 p-6">
+            <div className="flex items-center gap-2">
+              <Users className="w-4 h-4 text-gray-500" />
+              <span className="text-sm font-medium text-gray-500">Total Anggota</span>
+            </div>
+            <p className="text-2xl font-bold">{statistics.totalMembers}</p>
+            <div className="flex justify-between mt-2 text-sm">
+              <span className="text-green-500">{statistics.activeMembers} Aktif</span>
+              <span className="text-gray-500">{statistics.inactiveMembers} Tidak Aktif</span>
+            </div>
+          </CardContent>
+        </Card>
 
-        <div className="bg-white p-6 rounded-lg shadow-sm border border-gray-200">
-          <p className="text-sm font-medium text-gray-500">Total Dana</p>
-          <p className="text-2xl font-bold text-gray-800 mt-2">{statistics.totalBalance}</p>
-          <div className="mt-2 text-sm">
-            <span className="text-green-500">+2.4% dari bulan lalu</span>
-          </div>
-        </div>
+        <Card>
+          <CardContent className="flex flex-col gap-4 p-6">
+            <div className="flex items-center gap-2">
+              <Wallet className="w-4 h-4 text-gray-500" />
+              <span className="text-sm font-medium text-gray-500">Total Dana</span>
+            </div>
+            <p className="text-2xl font-bold">{statistics.totalBalance}</p>
+            <div className="text-sm text-green-500">+2.4% dari bulan lalu</div>
+          </CardContent>
+        </Card>
 
-        <div className="bg-white p-6 rounded-lg shadow-sm border border-gray-200">
-          <p className="text-sm font-medium text-gray-500">Pinjaman Aktif</p>
-          <p className="text-2xl font-bold text-gray-800 mt-2">{statistics.activeLoans}</p>
-          <div className="mt-2 text-sm">
-            <span className="text-gray-500">Senilai {statistics.loanAmount}</span>
-          </div>
-        </div>
+        <Card>
+          <CardContent className="flex flex-col gap-4 p-6">
+            <div className="flex items-center gap-2">
+              <CreditCard className="w-4 h-4 text-gray-500" />
+              <span className="text-sm font-medium text-gray-500">Pinjaman Aktif</span>
+            </div>
+            <p className="text-2xl font-bold">{statistics.activeLoans}</p>
+            <div className="text-sm text-gray-500">Senilai {statistics.loanAmount}</div>
+          </CardContent>
+        </Card>
 
-        <div className="bg-white p-6 rounded-lg shadow-sm border border-gray-200">
-          <p className="text-sm font-medium text-gray-500">Anggota Baru Bulan Ini</p>
-          <p className="text-2xl font-bold text-gray-800 mt-2">{statistics.newMembersThisMonth}</p>
-          <div className="mt-2 text-sm">
-            <span className="text-green-500">+12% dari bulan lalu</span>
-          </div>
-        </div>
+        <Card>
+          <CardContent className="flex flex-col gap-4 p-6">
+            <div className="flex items-center gap-2">
+              <Calendar className="w-4 h-4 text-gray-500" />
+              <span className="text-sm font-medium text-gray-500">Transaksi Hari Ini</span>
+            </div>
+            <p className="text-2xl font-bold">{statistics.todayTransactions}</p>
+            <div className="text-sm text-green-500">+5 dari kemarin</div>
+          </CardContent>
+        </Card>
       </div>
 
       {/* Recent Activities */}
-      <div className="bg-white rounded-lg shadow-sm border border-gray-200 overflow-hidden">
-        <div className="p-6">
-          <h2 className="text-lg font-semibold text-gray-800">Aktivitas Terbaru</h2>
-        </div>
-        <div className="overflow-x-auto">
-          <table className="min-w-full divide-y divide-gray-200">
-            <thead className="bg-gray-50">
-              <tr>
-                <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                  Tipe
-                </th>
-                <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                  Nama
-                </th>
-                <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                  Tanggal
-                </th>
-                <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                  Status
-                </th>
-                <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                  Aksi
-                </th>
-              </tr>
-            </thead>
-            <tbody className="bg-white divide-y divide-gray-200">
+      <Card>
+        <CardContent className="p-6">
+          <h2 className="text-lg font-semibold mb-4">Aktivitas Terbaru</h2>
+          <Table>
+            <TableHeader>
+              <TableRow>
+                <TableHead>Tipe</TableHead>
+                <TableHead>Nama</TableHead>
+                <TableHead>Tanggal</TableHead>
+                <TableHead>Status</TableHead>
+              </TableRow>
+            </TableHeader>
+            <TableBody>
               {recentActivities.map((activity) => (
-                <tr key={activity.id}>
-                  <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                    {activity.type}
-                  </td>
-                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                    {activity.name}
-                  </td>
-                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                    {activity.date}
-                  </td>
-                  <td className="px-6 py-4 whitespace-nowrap">
-                    <span className={`px-2 inline-flex text-xs leading-5 font-semibold rounded-full ${
+                <TableRow key={activity.id}>
+                  <TableCell className="font-medium">{activity.type}</TableCell>
+                  <TableCell>{activity.name}</TableCell>
+                  <TableCell>{activity.date}</TableCell>
+                  <TableCell>
+                    <span className={`px-2 py-1 text-xs font-semibold rounded-full ${
                       activity.status === "Sukses" 
                         ? "bg-green-100 text-green-800"
                         : activity.status === "Menunggu"
@@ -117,25 +124,32 @@ const AdminDashboard: React.FC = () => {
                     }`}>
                       {activity.status}
                     </span>
-                  </td>
-                  <td className="px-6 py-4 whitespace-nowrap text-sm text-blue-600 hover:text-blue-900">
-                    <a href="#">Detail</a>
-                  </td>
-                </tr>
+                  </TableCell>
+                </TableRow>
               ))}
-            </tbody>
-          </table>
-        </div>
-      </div>
+            </TableBody>
+          </Table>
+        </CardContent>
+      </Card>
 
-      {/* Charts & Additional Info (simplified for this demo) */}
+      {/* Charts & Additional Info */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-        <div className="bg-white p-6 rounded-lg shadow-sm border border-gray-200 h-64 flex items-center justify-center">
-          <p className="text-gray-500">Grafik Pertumbuhan Anggota</p>
-        </div>
-        <div className="bg-white p-6 rounded-lg shadow-sm border border-gray-200 h-64 flex items-center justify-center">
-          <p className="text-gray-500">Grafik Transaksi Keuangan</p>
-        </div>
+        <Card>
+          <CardContent className="p-6">
+            <h2 className="text-lg font-semibold mb-4">Grafik Pertumbuhan Anggota</h2>
+            <div className="h-64 flex items-center justify-center bg-gray-50 rounded-lg">
+              <span className="text-gray-500">Grafik akan diimplementasikan</span>
+            </div>
+          </CardContent>
+        </Card>
+        <Card>
+          <CardContent className="p-6">
+            <h2 className="text-lg font-semibold mb-4">Grafik Transaksi Keuangan</h2>
+            <div className="h-64 flex items-center justify-center bg-gray-50 rounded-lg">
+              <span className="text-gray-500">Grafik akan diimplementasikan</span>
+            </div>
+          </CardContent>
+        </Card>
       </div>
     </div>
   );

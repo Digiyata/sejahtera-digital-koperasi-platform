@@ -8,7 +8,7 @@ import {
   CarouselPrevious,
 } from "@/components/ui/carousel";
 import { ArrowRight } from "lucide-react";
-import type { EmblaCarouselType } from "embla-carousel-react";
+import type { UseEmblaCarouselType } from "embla-carousel-react";
 
 const slides = [
   {
@@ -27,7 +27,7 @@ const HeroSlider = () => {
     <Carousel 
       className="relative w-full" 
       opts={{ loop: true }}
-      onSelect={(api: EmblaCarouselType) => {
+      onSelect={(api: UseEmblaCarouselType[1]) => {
         const selectedIndex = api.selectedScrollSnap();
         setActiveDot(selectedIndex);
       }}

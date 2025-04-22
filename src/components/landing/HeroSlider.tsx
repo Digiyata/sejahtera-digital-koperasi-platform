@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+
+import React, { useState, useCallback } from "react";
 import { Link } from "react-router-dom";
 import {
   Carousel,
@@ -6,9 +7,9 @@ import {
   CarouselItem,
   CarouselNext,
   CarouselPrevious,
+  type CarouselApi,
 } from "@/components/ui/carousel";
 import { ArrowRight } from "lucide-react";
-import type { UseEmblaCarouselType } from "embla-carousel-react";
 
 const slides = [
   {
@@ -22,15 +23,31 @@ const slides = [
 
 const HeroSlider = () => {
   const [activeDot, setActiveDot] = useState(0);
+  const [api, setApi] = useState<CarouselApi>();
+
+  const onApiChange = useCallback((api: CarouselApi) => {
+    if (!api) return;
+
+    const onSelect = () => {
+      setActiveDot(api.selectedScrollSnap());
+    };
+
+    api.on("select", onSelect);
+    
+    // Initial call to set the active dot on first render
+    onSelect();
+
+    // Cleanup function will be invoked when the component unmounts
+    return () => {
+      api.off("select", onSelect);
+    };
+  }, []);
 
   return (
     <Carousel 
       className="relative w-full" 
       opts={{ loop: true }}
-      onSelect={(api: UseEmblaCarouselType[1]) => {
-        const selectedIndex = api.selectedScrollSnap();
-        setActiveDot(selectedIndex);
-      }}
+      setApi={onApiChange}
     >
       <CarouselContent>
         {slides.map((slide, index) => (
@@ -81,7 +98,7 @@ const HeroSlider = () => {
         {slides.map((_, index) => (
           <button
             key={index}
-            onClick={() => setActiveDot(index)}
+            onClick={() => api?.scrollTo(index)}
             className={`w-3 h-3 rounded-full ${
               activeDot === index ? "bg-astra-blue" : "bg-white bg-opacity-50"
             } transition-all duration-300`}

@@ -24,7 +24,16 @@ const HeroSlider = () => {
   const [activeDot, setActiveDot] = useState(0);
 
   return (
-    <Carousel className="relative w-full" onSelect={(index) => setActiveDot(index)}>
+    <Carousel 
+      className="relative w-full" 
+      opts={{ loop: true }}
+      onSelect={(api) => {
+        const currentSlide = api?.selectedScrollSnap();
+        if (currentSlide !== undefined) {
+          setActiveDot(currentSlide);
+        }
+      }}
+    >
       <CarouselContent>
         {slides.map((slide, index) => (
           <CarouselItem key={index} className="bg-astra-yellow">

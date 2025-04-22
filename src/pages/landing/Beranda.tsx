@@ -1,74 +1,13 @@
-
 import React from "react";
 import { Link } from "react-router-dom";
-
-// Mock data for testimonials
-const testimonials = [
-  {
-    id: 1,
-    text: "Koperasi Sejahtera membantu usaha saya berkembang melalui pinjaman modal dengan bunga yang sangat terjangkau.",
-    name: "Budi Santoso",
-    title: "Pemilik Warung Makan"
-  },
-  {
-    id: 2,
-    text: "Saya sangat terbantu dengan adanya pelatihan UMKM yang diadakan Koperasi Sejahtera, omset usaha saya meningkat 50% sejak bergabung.",
-    name: "Siti Rahayu",
-    title: "Pengusaha Batik"
-  },
-  {
-    id: 3,
-    text: "Simpanan sukarela di Koperasi Sejahtera memberikan imbal hasil yang lebih baik dibanding bank konvensional. Sangat direkomendasikan!",
-    name: "Agus Wibowo",
-    title: "Pedagang Sembako"
-  }
-];
-
-// Mock data for programs
-const programs = [
-  { 
-    title: "Simpanan Pokok", 
-    description: "Dana awal yang wajib dibayarkan anggota saat bergabung dengan koperasi.",
-    icon: "💰" 
-  },
-  { 
-    title: "Pinjaman Usaha", 
-    description: "Bantuan modal untuk anggota yang ingin mengembangkan usahanya.",
-    icon: "📈" 
-  },
-  { 
-    title: "Pelatihan UMKM", 
-    description: "Program edukasi untuk meningkatkan kapasitas usaha anggota.",
-    icon: "🎓" 
-  },
-  { 
-    title: "Investasi Anggota", 
-    description: "Kesempatan investasi dengan imbal hasil menarik untuk anggota.",
-    icon: "💼" 
-  },
-];
+import HeroSlider from "@/components/landing/HeroSlider";
 
 const Beranda: React.FC = () => {
   return (
     <div className="flex flex-col min-h-screen">
-      {/* Hero Section */}
-      <section className="bg-green-700 text-white py-16 md:py-24">
-        <div className="container mx-auto px-4">
-          <div className="max-w-3xl mx-auto text-center">
-            <h1 className="text-3xl md:text-5xl font-bold mb-6">
-              Bersama Koperasi Sejahtera, Raih Masa Depan Cerah!
-            </h1>
-            <p className="text-lg md:text-xl mb-8">
-              Bergabung dengan ribuan anggota kami dan nikmati manfaat ekonomi serta sosial untuk kesejahteraan bersama.
-            </p>
-            <Link
-              to="/landing/login"
-              className="inline-block px-6 py-3 bg-white text-green-700 font-bold rounded-full text-lg hover:bg-green-100 transition duration-200"
-            >
-              Gabung Sekarang
-            </Link>
-          </div>
-        </div>
+      {/* Hero Section with Slider */}
+      <section className="bg-green-700">
+        <HeroSlider />
       </section>
 
       {/* About Section */}
